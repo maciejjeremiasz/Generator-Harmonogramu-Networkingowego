@@ -181,8 +181,8 @@ st.markdown("""
 @st.cache_resource
 def setup_fonts():
     # Ścieżki relatywne - wskazują na folder 'fonts' w Twoim repozytorium GitHub
-    font_path = "fonts/DejaVuSans.ttf"
-    font_bold_path = "fonts/DejaVuSans-Bold.ttf"
+    font_path = "Fonts/DejaVuSans.ttf"
+    font_bold_path = "Fonts/DejaVuSans-Bold.ttf"
     
     try:
         if os.path.exists(font_path) and os.path.exists(font_bold_path):
