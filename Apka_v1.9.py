@@ -39,17 +39,17 @@ st.markdown("""
             font-family: 'Material Symbols Rounded', sans-serif !important;
         }
 
-        /* 2. BARDZO DUŻY ROZMIAR (2.0rem) - Tylko dla nagłówków */
+        /* 2. BARDZO DUŻY ROZMIAR (1.5rem) - Tylko dla nagłówków */
         h1, h2, h3, .recommendation-title {
-            font-size: 1.8rem !important;
+            font-size: 1.5rem !important;
             font-weight: 700 !important;
             line-height: 1.2 !important;
             padding-bottom: 0.5rem;
         }
 
-        /* 3. DUŻY ROZMIAR (1.2rem) - Dla tekstów, etykiet, inputów i przycisków */
+        /* 3. DUŻY ROZMIAR (1.0rem) - Dla tekstów, etykiet, inputów i przycisków */
         p, li, label, input, .stButton button {
-            font-size: 1.2rem !important;
+            font-size: 1.0rem !important;
         }
 
         /* Pogrubienie etykiet nad polami do wpisywania */
@@ -73,12 +73,12 @@ st.markdown("""
         /* Etykiety: "Miejsca przy stoliku", "Docelowa liczba rund" */
         div[data-testid="stNumberInput"] label p,
         div[data-testid="stNumberInput"] label {
-            font-size: 1.5rem !important; /* Zmień na swój docelowy rozmiar */
+            font-size: 1.2rem !important; /* Zmień na swój docelowy rozmiar */
         }
         
         /* Cyfry wewnątrz pola do wpisywania */
         div[data-testid="stNumberInput"] input {
-            font-size: 1.5rem !important; /* Zmień na swój docelowy rozmiar */
+            font-size: 1.2rem !important; /* Zmień na swój docelowy rozmiar */
         }
 
        /* ==========================================
@@ -99,7 +99,7 @@ st.markdown("""
         /* 2. Główne wartości (duże liczby, np. "10", "85.50%") */
         div[data-testid="stMetricValue"],
         div[data-testid="stMetricValue"] * {
-            font-size: 2.5rem !important; /* Zmień na swój docelowy rozmiar liczby */
+            font-size: 2.0rem !important; /* Zmień na swój docelowy rozmiar liczby */
         }
 
         /* 3. Wartość delty (tekst i strzałka pod wartością np. w "Konflikty firmowe") */
@@ -142,7 +142,7 @@ st.markdown("""
         section[data-testid="stSidebar"] h1,
         section[data-testid="stSidebar"] h2,
         section[data-testid="stSidebar"] h3 {
-            font-size: 1.7rem !important; /* <-- Zmień na swój docelowy rozmiar, np. 1.2rem lub 1.5rem */
+            font-size: 1.5rem !important; /* <-- Zmień na swój docelowy rozmiar, np. 1.2rem lub 1.5rem */
             padding-bottom: 1rem !important;
         }
 
@@ -153,7 +153,7 @@ st.markdown("""
         /* Celujemy wyłącznie w tag <h1> w głównej części strony (omijając pasek boczny) */
         .block-container h1,
         div[data-testid="stMainBlockContainer"] h1 {
-            font-size: 3.0rem !important; /* <-- Tutaj wpisz swój docelowy rozmiar (np. 3.0rem lub 4.0rem) */
+            font-size: 2.0rem !important; /* <-- Tutaj wpisz swój docelowy rozmiar (np. 3.0rem lub 4.0rem) */
             
             /* Opcjonalnie: możesz tu też zmienić kolor lub wyśrodkować główny tytuł */
             /* text-align: center !important; */
