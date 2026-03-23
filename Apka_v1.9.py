@@ -835,7 +835,7 @@ if uploaded_file is not None:
     
     if L > M:
         required_tables = math.ceil(L / (Y - 1))
-        st.error(f"**UWAGA: Przekroczono limit miejsc przy stolikach!**\n\nSystem rozmieści tylko pierwszych {M} uczestników z listy. Aby uwzględnić wszystkich, musisz ograniczyć listę uczestników do {M} osób lub zwiększyć liczbę stołów (moderatorów) do co najmniej {required_tables}.")
+        st.error(f"**UWAGA: Przekroczono limit miejsc przy stolikach!**\n\nSystem rozmieści tylko pierwszych {M} uczestników z listy. Aby uwzględnić wszystkich, musisz ograniczyć listę uczestników do {M} osób lub zwiększyć liczbę stołów (moderatorów) do co najmniej {required_tables} lub zwiększyć ilość miejsc przy stołach.")
         
         with st.expander(f"Uczestnicy nieuwzględnieni (Liczba: {L - M})"):
             excluded_df = pd.DataFrame(participants[M:], columns=["Imię", "Nazwisko", "Firma"])
