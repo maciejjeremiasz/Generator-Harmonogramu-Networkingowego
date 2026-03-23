@@ -135,18 +135,6 @@ st.markdown("""
         }
 
 /* ==========================================
-           NADPISANIE ROZMIARU: PASEK BOCZNY (SIDEBAR)
-           ========================================== */
-        
-        /* Zmniejszenie nagłówka "Dane wejściowe" w panelu bocznym */
-        section[data-testid="stSidebar"] h1,
-        section[data-testid="stSidebar"] h2,
-        section[data-testid="stSidebar"] h3 {
-            font-size: 1.5rem !important; /* <-- Zmień na swój docelowy rozmiar, np. 1.2rem lub 1.5rem */
-            padding-bottom: 1rem !important;
-        }
-
-/* ==========================================
            NADPISANIE ROZMIARU: GŁÓWNY TYTUŁ (st.title)
            ========================================== */
         
@@ -772,17 +760,18 @@ if st.button("ℹ️ Informacje o aplikacji"):
     show_app_info()
 
 
-# --- SIDEBAR (Tylko wgrywanie pliku) ---
-st.sidebar.header("📁 Dane wejściowe")
-uploaded_file = st.sidebar.file_uploader("Wgraj plik z danymi (Excel)", type=["xlsx"])
-
-st.sidebar.markdown("""
----
-**Wymagany format pliku Excel:**
-Plik musi zawierać dwa arkusze:
-1. **Uczestnicy**: Kolumny `Imię`, `Nazwisko`, `Firma`
-2. **Moderatorzy**: Kolumny `Imię`, `Nazwisko`
-""")
+# --- WGRYWANIE PLIKU (GŁÓWNA STRONA) ---
+with st.container(border=True):
+    st.header("📁 Dane wejściowe")
+    
+    st.info("""
+    **Wymagany format pliku Excel:**
+    Plik musi zawierać dwa arkusze:
+    1. **Uczestnicy**: Kolumny `Imię`, `Nazwisko`, `Firma`
+    2. **Moderatorzy**: Kolumny `Imię`, `Nazwisko`
+    """)
+    
+    uploaded_file = st.file_uploader("Wgraj plik z danymi (Excel)", type=["xlsx"])
 
 # --- GŁÓWNA LOGIKA ---
 if uploaded_file is not None:
@@ -802,7 +791,7 @@ if uploaded_file is not None:
             st.error("Błąd: Brak moderatorów w pliku Excel. Liczba stolików (X) wynosi 0.")
             st.stop()
             
-        st.sidebar.success(f"Wczytano {len(participants)} uczestników i {X} moderatorów.")
+        st.success(f"✅ Wczytano {len(participants)} uczestników i {X} moderatorów.")
         
     except Exception as e:
         st.error(f"Błąd podczas wczytywania pliku: {e}")
@@ -956,4 +945,4 @@ if uploaded_file is not None:
             use_container_width=True
         )
 else:
-    st.info("👈 Aby rozpocząć, wgraj plik Excel z danymi w panelu bocznym.")
+    st.info("☝️ Aby rozpocząć, wgraj plik Excel z danymi powyżej.")
