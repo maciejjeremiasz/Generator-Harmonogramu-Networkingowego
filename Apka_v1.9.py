@@ -173,22 +173,31 @@ st.markdown("""
         }
 
 /* ==========================================
-            Ukrywanie przycisku Fork, ikony GitHub oraz paska Header
-            ========================================== */
-    
-   /* Ukrywa przycisk Deploy i ikonę GitHub */
-    .stAppDeployButton {
+    Ukrywanie niechcianych elementów Streamlit (GitHub, Menu, Stopka)
+   ========================================== */
+
+    /* 1. Ukrycie całego kontenera z prawego górnego rogu (GitHub, Fork, Deploy itp.) */
+    [data-testid="stToolbar"] {
         display: none !important;
     }
-    
-    /* Ukrywa menu z trzema kropkami w prawym górnym rogu (opcjonalne) */
-    [data-testid="stHeaderActionElements"] {
+
+    /* 2. Zabezpieczenie dla przycisku Deploy (dla różnych wersji Streamlit) */
+    .stAppDeployButton, 
+    [data-testid="stAppDeployButton"] {
         display: none !important;
     }
-    
-    /* Ukrywa stopkę 'Made with Streamlit' */
-    footer {
-        visibility: hidden;
+
+    /* 3. Ukrycie menu z trzema kropkami */
+    [data-testid="stHeaderActionElements"],
+    [data-testid="stMainMenu"] {
+        display: none !important;
+    }
+
+    /* 4. Całkowite usunięcie stopki "Made with Streamlit" */
+    footer, 
+    [data-testid="stFooter"],
+    [data-testid="stBottom"] {
+        display: none !important;
     }
 
 
