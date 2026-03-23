@@ -173,31 +173,37 @@ st.markdown("""
         }
 
 /* ==========================================
-    Ukrywanie niechcianych elementów Streamlit (GitHub, Menu, Stopka)
+    Precyzyjne ukrywanie elementów (ochrona panelu bocznego)
    ========================================== */
 
-    /* 1. Ukrycie całego kontenera z prawego górnego rogu (GitHub, Fork, Deploy itp.) */
-    [data-testid="stToolbar"] {
+    /* 1. Ukrycie standardowego menu (trzy kropki) */
+    #MainMenu,
+    [data-testid="stHeaderActionElements"] {
         display: none !important;
     }
 
-    /* 2. Zabezpieczenie dla przycisku Deploy (dla różnych wersji Streamlit) */
-    .stAppDeployButton, 
+    /* 2. Ukrycie przycisku Deploy / Manage App */
+    .stAppDeployButton,
     [data-testid="stAppDeployButton"] {
         display: none !important;
     }
 
-    /* 3. Ukrycie menu z trzema kropkami */
-    [data-testid="stHeaderActionElements"],
-    [data-testid="stMainMenu"] {
+    /* 3. Ukrycie elementów Streamlit Cloud (ikonka GitHub, Fork) */
+    /* Używamy symbolu '*', aby wyłapać dynamicznie generowane nazwy klas przez chmurę */
+    div[class^="viewerBadge"], 
+    div[class*="viewerBadge"] {
         display: none !important;
     }
 
-    /* 4. Całkowite usunięcie stopki "Made with Streamlit" */
-    footer, 
-    [data-testid="stFooter"],
-    [data-testid="stBottom"] {
+    /* 4. Całkowite ukrycie stopki "Made with Streamlit" */
+    footer,
+    [data-testid="stFooter"] {
         display: none !important;
+    }
+
+    /* 5. Upewnienie się, że tło nagłówka jest przezroczyste, aby nie zasłaniało aplikacji */
+    header {
+        background: transparent !important;
     }
 
 
