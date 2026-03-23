@@ -176,16 +176,17 @@ st.markdown("""
             Ukrywanie przycisku Fork, ikony GitHub oraz paska Header
             ========================================== */
     
-    /* Ukrywa ikonę GitHub i przycisk Fork */
+   /* Ukrywa przycisk Deploy i ikonę GitHub */
     .stAppDeployButton {
         display: none !important;
     }
-    /* Ukrywa cały górny pasek (header) */
-    header {
-        visibility: hidden;
-        height: 0px;
+    
+    /* Ukrywa menu z trzema kropkami w prawym górnym rogu (opcjonalne) */
+    [data-testid="stHeaderActionElements"] {
+        display: none !important;
     }
-    /* Ukrywa stopkę 'Made with Streamlit' (opcjonalnie) */
+    
+    /* Ukrywa stopkę 'Made with Streamlit' */
     footer {
         visibility: hidden;
     }
