@@ -524,43 +524,90 @@ def generate_visual_plan_pdf_buffer(schedule, moderators, participants_data, X, 
         
         c.showPage()
         
+        # --- ZMODYFIKOWANA LOGIKA GENEROWANIA LIST UCZESTNIKÓW ---
         if not draw_legend_on_side:
-            c.setFont(font_bold, 24)
-            c.drawCentredString(width / 2, height - 15 * mm, f"Listy Uczestników - Runda {r+1}")
-            
-            list_cols = min(X, 4)
+            list_cols = min(X, 3) # Wymuszenie max 3 kolumn
             list_col_w = (width - 2 * margin_x) / list_cols
+            max_text_w = list_col_w - 5 * mm # Max szerokość tekstu z zapasem 5mm na odstęp
             
-            for t in range(X):
-                l_c = t % list_cols
-                l_r = t // list_cols
+            # Parametry układu dla paginacji
+            table_block_h = 15 * mm + Y * 5 * mm # Szacowana wysokość jednego stolika (tytuł + moderator + uczestnicy)
+            available_h = height - 45 * mm - margin_y # Przestrzeń pomiędzy głównym nagłówkiem strony a marginesem dolnym
+            max_rows_per_page = max(1, int(available_h / table_block_h))
+            tables_per_page = max_rows_per_page * list_cols
+            
+            tables_drawn = 0
+            
+            while tables_drawn < X:
+                c.setFont(font_bold, 24)
+                title_text = f"Listy Uczestników - Runda {r+1}"
+                if tables_drawn > 0:
+                    title_text += " (cd.)"
+                c.drawCentredString(width / 2, height - 15 * mm, title_text)
                 
-                lx = margin_x + l_c * list_col_w
-                ly = height - 35 * mm - l_r * (Y * 5 * mm + 15 * mm)
+                tables_to_draw = min(tables_per_page, X - tables_drawn)
                 
-                c.setFont(font_bold, 12)
-                c.drawString(lx, ly, f"STÓŁ {t+1}")
-                ly -= 15
-                
-                mod = moderators[t]
-                c.setFont(font_bold, 10)
-                c.drawString(lx, ly, f"M: {mod[0]} {mod[1]}")
-                ly -= 12
-                
-                c.setFont(font_regular, 10)
-                table_parts = [p for p in schedule[r][t] if p[2] != "Brak"]
-                for p in table_parts:
-                    p_id = participant_ids[tuple(p)]
-                    comp = p[2] if len(p[2]) <= 20 else p[2][:17] + "..."
-                    c.drawString(lx, ly, f"{p_id}: {p[0]} {p[1]} ({comp})")
+                for i in range(tables_to_draw):
+                    t = tables_drawn + i
+                    l_c = i % list_cols
+                    l_r = i // list_cols
+                    
+                    lx = margin_x + l_c * list_col_w
+                    ly = height - 35 * mm - l_r * table_block_h
+                    
+                    # Rysuj Tytuł Stołu
+                    c.setFont(font_bold, 12)
+                    c.drawString(lx, ly, f"STÓŁ {t+1}")
+                    ly -= 15
+                    
+                    # Rysuj Moderatora
+                    mod = moderators[t]
+                    c.setFont(font_bold, 10)
+                    mod_text = f"M: {mod[0]} {mod[1]}"
+                    # Zabezpieczenie szerokości dla moderatora (bardzo rzadkie, ale warto ująć)
+                    while c.stringWidth(mod_text + "...", font_bold, 10) > max_text_w and len(mod_text) > 5:
+                        mod_text = mod_text[:-1]
+                    if len(mod_text) < len(f"M: {mod[0]} {mod[1]}"):
+                        mod_text += "..."
+                    c.drawString(lx, ly, mod_text)
                     ly -= 12
-            
-            c.showPage()
+                    
+                    # Rysuj Uczestników z dynamicznym obcinaniem tekstu
+                    c.setFont(font_regular, 10)
+                    table_parts = [p for p in schedule[r][t] if p[2] != "Brak"]
+                    for p in table_parts:
+                        p_id = participant_ids[tuple(p)]
+                        base_text = f"{p_id}: {p[0]} {p[1]}"
+                        comp = p[2]
+                        
+                        full_text = f"{base_text} ({comp})"
+                        
+                        # Sprawdzenie za pomocą reportlab czy tekst nie wychodzi za krawędź kolumny
+                        if c.stringWidth(full_text, font_regular, 10) > max_text_w:
+                            # Próbujemy najpierw skrócić nazwę firmy literka po literce
+                            while len(comp) > 0 and c.stringWidth(f"{base_text} ({comp}...)", font_regular, 10) > max_text_w:
+                                comp = comp[:-1]
+                                
+                            if len(comp) > 0:
+                                final_text = f"{base_text} ({comp}...)"
+                            else:
+                                # Jeśli samo Imię i Nazwisko jest niespotykanie długie, je również obcinamy
+                                current_text = base_text
+                                while len(current_text) > 0 and c.stringWidth(current_text + "...", font_regular, 10) > max_text_w:
+                                    current_text = current_text[:-1]
+                                final_text = current_text + "..."
+                        else:
+                            final_text = full_text
+                            
+                        c.drawString(lx, ly, final_text)
+                        ly -= 12
+                
+                tables_drawn += tables_to_draw
+                c.showPage() # Dodaje nową stronę (lub zamyka obecną)
 
     c.save()
     buffer.seek(0)
     return buffer
-
 def generate_badges_pdf_buffer(schedule, participants_data, Z):
     fonts_ready = setup_fonts()
     font_regular = "CustomFont" if fonts_ready else "Helvetica"
