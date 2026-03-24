@@ -531,8 +531,8 @@ def generate_visual_plan_pdf_buffer(schedule, moderators, participants_data, X, 
             max_text_w = list_col_w - 5 * mm # Max szerokość tekstu z zapasem 5mm na odstęp
             
             # Parametry układu dla paginacji
-            table_block_h = 15 * mm + Y * 5 * mm # Szacowana wysokość jednego stolika (tytuł + moderator + uczestnicy)
-            available_h = height - 45 * mm - margin_y # Przestrzeń pomiędzy głównym nagłówkiem strony a marginesem dolnym
+            table_block_h = 15 * mm + Y * 4 * mm # Szacowana wysokość jednego stolika (tytuł + moderator + uczestnicy)
+            available_h = height - 35 * mm - margin_y # Przestrzeń pomiędzy głównym nagłówkiem strony a marginesem dolnym
             max_rows_per_page = max(1, int(available_h / table_block_h))
             tables_per_page = max_rows_per_page * list_cols
             
