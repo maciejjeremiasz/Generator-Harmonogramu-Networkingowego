@@ -751,7 +751,7 @@ Ten generator pomoże Ci optymalnie rozplanować usadzenie uczestników podczas 
 W lewym panelu bocznym załaduj plik excel z dwiema zakładkami:
 
 1. Zakładka „Lista Uczestników” w układzie kolumn: Imię, Nazwisko, Firma
-2. Zakładka „Moderatorzy” w układzie kolumn: Imię, Nazwisko - PODANA LICZBA MODERATORÓW BĘDZIE RÓWNOZNACZNA Z ILOŚCIĄ STOLIKÓW PODCZAS WYDARZENIA
+2. Zakładka „Moderatorzy” w układzie kolumn: Imię, Nazwisko - PODANA W PLIKU LICZBA MODERATORÓW BĘDZIE RÓWNOZNACZNA Z ILOŚCIĄ STOLIKÓW
 
 **Liczba Moderatorów jest równoznaczna z ilością stolików.**
 
@@ -815,7 +815,7 @@ with st.container(border=True):
     **Wymagany format pliku Excel:**
     Plik musi zawierać dwa arkusze:
     1. **Uczestnicy**: Kolumny `Imię`, `Nazwisko`, `Firma`
-    2. **Moderatorzy**: Kolumny `Imię`, `Nazwisko`
+    2. **Moderatorzy**: Kolumny `Imię`, `Nazwisko` - PODANA W PLIKU LICZBA MODERATORÓW BĘDZIE RÓWNOZNACZNA Z ILOŚCIĄ STOLIKÓW
     """)
     
     uploaded_file = st.file_uploader("Wgraj plik z danymi (Excel)", type=["xlsx"])
