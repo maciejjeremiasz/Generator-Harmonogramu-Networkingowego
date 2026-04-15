@@ -183,6 +183,11 @@ st.markdown("""
 # ==========================================
 # FUNKCJE POMOCNICZE
 # ==========================================
+
+def reset_plan():
+    if 'plan_ready' in st.session_state:
+        st.session_state['plan_ready'] = False
+
 @st.cache_resource
 def setup_fonts():
     # Ścieżki relatywne - wskazują na folder 'fonts' w Twoim repozytorium GitHub
@@ -818,7 +823,7 @@ with st.container(border=True):
     2. **Moderatorzy**: Kolumny `Imię`, `Nazwisko`
     """)
     
-    uploaded_file = st.file_uploader("Wgraj plik z danymi (Excel)", type=["xlsx"])
+   uploaded_file = st.file_uploader("Wgraj plik z danymi (Excel)", type=["xlsx"], on_change=reset_plan)
 
 # --- GŁÓWNA LOGIKA ---
 if uploaded_file is not None:
@@ -851,7 +856,7 @@ if uploaded_file is not None:
         col_y, col_z, col_empty = st.columns([1, 1, 2])
         
         with col_y:
-            Y = st.number_input("Miejsca przy stoliku", min_value=3, value=4, help="Wliczając 1 moderatora")
+            Y = st.number_input("Miejsca przy stoliku", min_value=3, value=4, help="Wliczając 1 moderatora", on_change=reset_plan)
             
         unique_companies = set([p[2] for p in participants if p[2] != "Brak"])
         F = len(unique_companies)
@@ -869,7 +874,7 @@ if uploaded_file is not None:
         """, unsafe_allow_html=True)
 
         with col_z:
-            Z = st.number_input("Docelowa liczba rund", min_value=1, value=Z_min)
+            Z = st.number_input("Docelowa liczba rund", min_value=1, value=Z_min, on_change=reset_plan)
         
         if Z < Z_min:
             max_met = Z * (Y - 2)
