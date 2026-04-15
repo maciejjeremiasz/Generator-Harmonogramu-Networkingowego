@@ -823,7 +823,7 @@ with st.container(border=True):
     2. **Moderatorzy**: Kolumny `Imię`, `Nazwisko` - PODANA W PLIKU LICZBA MODERATORÓW BĘDZIE RÓWNOZNACZNA Z ILOŚCIĄ STOLIKÓW
     """)
     
-   uploaded_file = st.file_uploader("Wgraj plik z danymi (Excel)", type=["xlsx"], on_change=reset_plan)
+    uploaded_file = st.file_uploader("Wgraj plik z danymi (Excel)", type=["xlsx"], on_change=reset_plan)
 
 # --- GŁÓWNA LOGIKA ---
 if uploaded_file is not None:
