@@ -751,7 +751,7 @@ Ten generator pomoże Ci optymalnie rozplanować usadzenie uczestników podczas 
 W lewym panelu bocznym załaduj plik excel z dwiema zakładkami:
 
 1. Zakładka „Lista Uczestników” w układzie kolumn: Imię, Nazwisko, Firma
-2. Zakładka „Moderatorzy” w układzie kolumn: Imię Nazwisko
+2. Zakładka „Moderatorzy” w układzie kolumn: Imię, Nazwisko - PODANA LICZBA MODERATORÓW BĘDZIE RÓWNOZNACZNA Z ILOŚCIĄ STOLIKÓW PODCZAS WYDARZENIA
 
 **Liczba Moderatorów jest równoznaczna z ilością stolików.**
 
